@@ -658,6 +658,7 @@ MonoBehaviour:
   maxiumumCard: 0
   deck:
   - {fileID: 0}
+  hands: []
   cardSlots: []
 --- !u!114 &1879246549
 MonoBehaviour:
