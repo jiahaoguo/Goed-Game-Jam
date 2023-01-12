@@ -19,6 +19,7 @@ public class cardDisplay : MonoBehaviour
     }
     void useCard(bool avaliability)
     {
+        card.PerformEffect();
         Messenger.RemoveListener<bool>(Events.checkTimeRemain, useCard);
         if (avaliability) Messenger.Broadcast<cardDisplay>(Events.useCard, GetComponent<cardDisplay>());
     }
