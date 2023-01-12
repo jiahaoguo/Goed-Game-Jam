@@ -25,21 +25,18 @@ public interface ICardEffect
     void PerformEffect();
 }
 
-public class CardEffectTypeA : ICardEffect
+public class moveRight4 : ICardEffect
 {
     public void PerformEffect()
     {
         Messenger.Broadcast<int>(Events.move, 4);
-        Debug.Log("a");
-        //your effect's logic here
     }
 }
 
-public class CardEffectTypeB : ICardEffect
+public class normalAttack : ICardEffect
 {
     public void PerformEffect()
     {
-        Debug.Log("b");
-        //your effect's logic here
+        Messenger.Broadcast<int>(Events.attack, 2);
     }
 }
