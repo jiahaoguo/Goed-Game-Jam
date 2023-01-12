@@ -42,6 +42,7 @@ public class deckHolder : MonoBehaviour
     }
     private void usingCard(cardDisplay card)
     {
+        card.card.PerformEffect();
         hands.Remove(card);
         deck.Add(card);
         card.gameObject.SetActive(false);

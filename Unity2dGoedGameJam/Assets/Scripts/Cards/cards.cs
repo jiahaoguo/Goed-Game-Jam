@@ -29,6 +29,7 @@ public class CardEffectTypeA : ICardEffect
 {
     public void PerformEffect()
     {
+        Messenger.Broadcast<int>(Events.move, 4);
         Debug.Log("a");
         //your effect's logic here
     }

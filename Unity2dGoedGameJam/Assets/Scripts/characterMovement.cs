@@ -6,15 +6,15 @@ public class characterMovement : MonoBehaviour
 {
     private void OnEnable()
     {
-        Messenger.AddListener<cardDisplay>(Events.useCard, acting);
+        Messenger.AddListener<int>(Events.move, moving);
     }
     private void OnDisable()
     {
-        Messenger.RemoveListener<cardDisplay>(Events.useCard, acting);
+        Messenger.RemoveListener<int>(Events.move, moving);
     }
 
-    private void acting(cardDisplay card)
+    private void moving(int distance)
     {
-        Debug.Log("move");
+        transform.position+=new Vector3(distance, 0, 0);
     }
 }

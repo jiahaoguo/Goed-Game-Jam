@@ -36,7 +36,8 @@ public enum Events {
     checkTimeRemain,
     useCard,
     checkCard,
-    Epressed,
+    move,
+    /**
     itemget,
     Dialogue,
     Dialogueoff,
@@ -46,7 +47,7 @@ public enum Events {
     EnterDoor,
     EnterPlace,
     EnterPlaceoff,
-    unlock
+    unlock**/
 }
 
 static internal class Messenger {
