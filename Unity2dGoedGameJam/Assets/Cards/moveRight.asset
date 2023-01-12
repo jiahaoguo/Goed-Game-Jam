@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: moveRight
   m_EditorClassIdentifier: 
   Effect:
-    rid: -2
+    rid: 5428330962931679232
   cardName: Move Right
   description: move 1 unit to the right
   Art: {fileID: 21300000, guid: b234dafda82884c55b71a09cb93319c2, type: 3}
@@ -22,5 +22,5 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 5428330962931679232
+      type: {class: CardEffectTypeA, ns: , asm: Assembly-CSharp}
