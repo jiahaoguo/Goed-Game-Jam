@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ba959b7d3ba36346ad8885d6ff2a05c, type: 3}
-  m_Name: moveRight
+  m_Name: EquipSword
   m_EditorClassIdentifier: 
   Effect:
-    rid: 5428330974512414720
-  cardName: Move Right
-  description: move 1 unit to the right
-  Art: {fileID: 21300000, guid: b234dafda82884c55b71a09cb93319c2, type: 3}
-  timeCost: 1
-  type: movement
+    rid: -2
+  cardName: 
+  description: 
+  Art: {fileID: 0}
+  timeCost: 0
+  type: 
   references:
     version: 2
     RefIds:
-    - rid: 5428330974512414720
-      type: {class: moveRight4, ns: , asm: Assembly-CSharp}
+    - rid: -2
+      type: {class: , ns: , asm: }

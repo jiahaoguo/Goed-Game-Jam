@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ba959b7d3ba36346ad8885d6ff2a05c, type: 3}
-  m_Name: moveRight
+  m_Name: normalAttack
   m_EditorClassIdentifier: 
+  cardName: Normal Attack
+  description: attack 4
+  Art: {fileID: 21300000, guid: b9808c5d8ca3b47bd882f0c08496372b, type: 3}
+  timeCost: 2
+  type: attack
   Effect:
-    rid: 5428330974512414720
-  cardName: Move Right
-  description: move 1 unit to the right
-  Art: {fileID: 21300000, guid: b234dafda82884c55b71a09cb93319c2, type: 3}
-  timeCost: 1
-  type: movement
+    rid: 5428330974512414721
   references:
     version: 2
     RefIds:
-    - rid: 5428330974512414720
-      type: {class: moveRight4, ns: , asm: Assembly-CSharp}
+    - rid: 5428330974512414721
+      type: {class: normalAttack, ns: , asm: Assembly-CSharp}
