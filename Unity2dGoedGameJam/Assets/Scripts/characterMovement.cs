@@ -10,6 +10,7 @@ public class characterMovement : MonoBehaviour
     public float attackTime;
 
     public LayerMask enemyMask;
+    public LayerMask Wall;
 
     private void OnEnable()
     {
@@ -24,7 +25,15 @@ public class characterMovement : MonoBehaviour
 
     private void moving(int distance)
     {
-        transform.position+=new Vector3(distance, 0, 0);
+        Collider2D[] hitwalls = Physics2D.OverlapAreaAll(transform.position, transform.position+new Vector3(distance, 1, 0),Wall);
+        if(hitwalls.Length > 0)
+        {
+            //Rejection Animation
+        }
+        else
+        {
+            transform.position += new Vector3(distance, 0, 0);
+        }        
     }
 
     private void attack(int damage)
@@ -43,5 +52,6 @@ public class characterMovement : MonoBehaviour
         {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
+        Gizmos.DrawCube(transform.position+ new Vector3(2, 0, 0), new Vector3(4, 1, 0));
     }
 }
