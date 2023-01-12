@@ -8,8 +8,8 @@ public class cardDisplay : MonoBehaviour
     public cards card;
     private void Start()
     {
-        GetComponent<Image>().sprite = card.Art;
-        transform.Find("Name").GetComponent<Text>().text = card.name;
+        transform.Find("image").GetComponent<Image>().sprite = card.Art;
+        transform.Find("Name").GetComponent<Text>().text = card.cardName;
         GetComponent<Button>().onClick.AddListener(checkCard);
     }
     void checkCard()
@@ -19,6 +19,7 @@ public class cardDisplay : MonoBehaviour
     }
     void useCard(bool avaliability)
     {
+        card.PerformEffect();
         Messenger.RemoveListener<bool>(Events.checkTimeRemain, useCard);
         if (avaliability) Messenger.Broadcast<cardDisplay>(Events.useCard, GetComponent<cardDisplay>());
     }
