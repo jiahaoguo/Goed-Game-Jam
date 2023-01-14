@@ -49,3 +49,10 @@ public class equip : ICardEffect
 
     }
 }
+public class wait : ICardEffect
+{
+    public void PerformEffect(int effectAmount)
+    {
+
+    }
+}

@@ -12,32 +12,29 @@ public class TimeRemain : MonoBehaviour
         timeShowed=time;
     }
     private void Update()
-    {
-        if(timeShowed > time)
+    { 
+        if (timeShowed > time)
         {
-            timeShowed-=Time.deltaTime;
+            GetComponent<Text>().text = ((int)timeShowed).ToString();
+            timeShowed -=Time.deltaTime;
         }
-        GetComponent<Text>().text = ((int) timeShowed).ToString();
+        
     }
     private void OnEnable()
     {
         Messenger.AddListener<int>(Events.checkCard, checkTime);
-        Messenger.AddListener<cardDisplay>(Events.useCard, usingCard);
+        Messenger.AddListener<int>(Events.timeStart, usingCard);
     }
     private void OnDisable()
     {
         Messenger.AddListener<int>(Events.checkCard, checkTime);
-        Messenger.AddListener<cardDisplay>(Events.useCard, usingCard);
+        Messenger.AddListener<int>(Events.timeStart, usingCard);
     }
     void checkTime(int t)
     {
         Messenger.Broadcast<bool>(Events.checkTimeRemain, time>t);
     }
-    void usingCard(cardDisplay card)
-    {
-        usingTime(card.card.timeCost);
-    }
-    void usingTime(int time1)
+    void usingCard(int time1)
     {
         time -= time1;
         if(time < 0)

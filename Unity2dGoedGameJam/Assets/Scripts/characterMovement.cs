@@ -9,6 +9,7 @@ public class characterMovement : MonoBehaviour
     public float attackSpeed=0.5f;
     public float attackTime;
     private Animator animator;
+    private bool hit=false;
 
     private float moveDistance=0;
     private float timer=0;
@@ -44,7 +45,6 @@ public class characterMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("a");
             moveDistance= distance;
         }        
     }
@@ -53,7 +53,6 @@ public class characterMovement : MonoBehaviour
         if (moveDistance == Mathf.Infinity && timer > 0)
         {
             //rejection Animation
-            moveDistance = 0;
             timer -= Time.deltaTime;
         }
         else if (moveDistance > 0 && timer > 0)
@@ -70,10 +69,26 @@ public class characterMovement : MonoBehaviour
             timer = 0;
         }
         if (timer <= 0)
+        {
             animator.enabled = false;
+            GetComponent<Collider2D>().enabled = true;
+            if (hit) transform.Rotate(new Vector3(0, 0,-90));
+            hit = false;
+        }
+            
         else 
             animator.enabled = true;
         
+    }
+
+    public void getHurt(int damage)
+    {
+        timer = 2;
+        hit = true;
+        moveDistance = Mathf.Infinity;
+        transform.Rotate(new Vector3(0 , 0, 90));
+        GetComponent<Collider2D>().enabled = false;
+        Messenger.Broadcast<int>(Events.timeStart, 2);
     }
 
     private void attack(int damage)
