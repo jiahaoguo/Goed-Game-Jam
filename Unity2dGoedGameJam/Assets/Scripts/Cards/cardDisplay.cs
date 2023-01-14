@@ -11,6 +11,8 @@ public class cardDisplay : MonoBehaviour
     {
         transform.Find("image").GetComponent<Image>().sprite = card.Art;
         transform.Find("Name").GetComponent<Text>().text = card.cardName;
+        transform.Find("discription").GetComponent<Text>().text = card.description;
+        transform.Find("TimeCost").GetComponent<Text>().text=card.timeCost.ToString()+"s";
         GetComponent<Button>().onClick.AddListener(checkCard);
     }
     private void Update()

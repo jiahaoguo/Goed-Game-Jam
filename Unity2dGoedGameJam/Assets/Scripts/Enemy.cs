@@ -127,9 +127,9 @@ public class Enemy : MonoBehaviour
     {
         //Onhit Animation
         currentHealth -= damage;
-        if (currentHealth < 0)
+        if (currentHealth <= 0) 
         {
-            //death Animation
+            transform.Rotate(new Vector3(0, 0, 90));
             this.enabled = false;
             GetComponent<Collider2D>().enabled = false;
         }

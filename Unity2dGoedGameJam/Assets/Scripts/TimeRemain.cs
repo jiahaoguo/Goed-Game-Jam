@@ -12,12 +12,13 @@ public class TimeRemain : MonoBehaviour
         timeShowed=time;
     }
     private void Update()
-    { 
+    {
         if (timeShowed > time)
         {
             GetComponent<Text>().text = ((int)timeShowed).ToString();
-            timeShowed -=Time.deltaTime;
+            timeShowed -= Time.deltaTime;
         }
+        else timeShowed = time;
         
     }
     private void OnEnable()

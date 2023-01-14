@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ba959b7d3ba36346ad8885d6ff2a05c, type: 3}
-  m_Name: moveRight
+  m_Name: Turn
   m_EditorClassIdentifier: 
   Effect:
-    rid: 5428331016044937217
-  EffectAmount: 4
-  cardName: Move Right
-  description: 
-  timeCost: 2
-  Art: {fileID: 21300000, guid: b234dafda82884c55b71a09cb93319c2, type: 3}
+    rid: 5428331016044937228
+  EffectAmount: 0
+  cardName: Turn
+  description: TurnAround
+  timeCost: 1
+  Art: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 5428331016044937217
-      type: {class: moveRight, ns: , asm: Assembly-CSharp}
+    - rid: 5428331016044937228
+      type: {class: Turn, ns: , asm: Assembly-CSharp}

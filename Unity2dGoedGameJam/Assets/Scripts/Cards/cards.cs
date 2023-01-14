@@ -27,7 +27,7 @@ public interface ICardEffect
     void PerformEffect(int effectAmount);
 }
 
-public class moveRight : ICardEffect
+public class MoveRight : ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
@@ -42,17 +42,31 @@ public class Attack : ICardEffect
         Messenger.Broadcast<int>(Events.attack, effectAmount);
     }
 }
-public class equip : ICardEffect
+public class Equip : ICardEffect
+{
+    public void PerformEffect(int effectAmount)
+    {
+        Messenger.Broadcast<int>(Events.equip, effectAmount);
+    }
+}
+public class Think : ICardEffect
+{
+    public void PerformEffect(int effectAmount)
+    {
+        Messenger.Broadcast<int>(Events.drawCard, effectAmount);
+    }
+}
+public class Wait : ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
 
     }
 }
-public class wait : ICardEffect
+public class Turn : ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
-
+        Messenger.Broadcast(Events.turn);
     }
 }

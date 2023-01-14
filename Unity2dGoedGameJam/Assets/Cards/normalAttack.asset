@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba959b7d3ba36346ad8885d6ff2a05c, type: 3}
+  m_Name: normalAttack
+  m_EditorClassIdentifier: 
+  Effect:
+    rid: 5428331016044937223
+  EffectAmount: 40
+  cardName: Normal Attack
+  description: Do a normal attack
+  timeCost: 2
+  Art: {fileID: 21300000, guid: b9808c5d8ca3b47bd882f0c08496372b, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5428331016044937223
+      type: {class: Attack, ns: , asm: Assembly-CSharp}

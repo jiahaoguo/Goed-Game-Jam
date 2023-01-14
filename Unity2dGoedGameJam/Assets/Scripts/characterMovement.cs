@@ -10,6 +10,7 @@ public class characterMovement : MonoBehaviour
     public float attackTime;
     private Animator animator;
     private bool hit=false;
+    private int direction = 1;
 
     private float moveDistance=0;
     private float timer=0;
@@ -24,13 +25,17 @@ public class characterMovement : MonoBehaviour
     {
         Messenger.AddListener<int>(Events.move, moving);
         Messenger.AddListener<int>(Events.attack, attack);
+        Messenger.AddListener<int>(Events.equip, equiping);
         Messenger.AddListener<int>(Events.timeStart, addTimer);
+        Messenger.AddListener(Events.turn, turning);
     }
     private void OnDisable()
     {
         Messenger.RemoveListener<int>(Events.move, moving);
         Messenger.RemoveListener<int>(Events.attack, attack);
+        Messenger.RemoveListener<int>(Events.equip, equiping);
         Messenger.RemoveListener<int>(Events.timeStart, addTimer);
+        Messenger.RemoveListener(Events.turn, turning);
     }
     private void addTimer(int x)
     {
@@ -38,7 +43,7 @@ public class characterMovement : MonoBehaviour
     }
     private void moving(int distance)
     {
-        Collider2D[] hitwalls = Physics2D.OverlapAreaAll(transform.position, transform.position+new Vector3(distance, 1, 0),Wall);
+        Collider2D[] hitwalls = Physics2D.OverlapAreaAll(transform.position, transform.position+new Vector3(distance*direction, 1, 0),Wall);
         if(hitwalls.Length > 0)
         {
             moveDistance = Mathf.Infinity;
@@ -53,32 +58,32 @@ public class characterMovement : MonoBehaviour
         if (moveDistance == Mathf.Infinity && timer > 0)
         {
             //rejection Animation
-            timer -= Time.deltaTime;
         }
         else if (moveDistance > 0 && timer > 0)
         {
             float x = moveDistance / timer * Time.deltaTime;
-            transform.position += new Vector3(x, 0, 0);
+            transform.position += new Vector3(x*direction, 0, 0);
             moveDistance -= x;
-            timer -= Time.deltaTime;
+            
         }
-        else if (moveDistance<0.2)
+        if (moveDistance < 0.2 && moveDistance != 0)
         {
-            transform.position += new Vector3(moveDistance, 0, 0);
+            transform.position += new Vector3(moveDistance*direction, 0, 0);
             moveDistance = 0;
-            timer = 0;
         }
         if (timer <= 0)
         {
+            
             animator.enabled = false;
             GetComponent<Collider2D>().enabled = true;
             if (hit) transform.Rotate(new Vector3(0, 0,-90));
             hit = false;
-        }
-            
-        else 
+        }            
+        else
+        {
+            timer -= Time.deltaTime;
             animator.enabled = true;
-        
+        }        
     }
 
     public void getHurt(int damage)
@@ -94,11 +99,24 @@ public class characterMovement : MonoBehaviour
     private void attack(int damage)
     {
         // Do animation here
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyMask);
         foreach(Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().gotHit(damage);
+        }
+    }
+    private void equiping(int equip)
+    {
+        attackRange = equip;
+        if(equip == 3)
+        {
+            transform.Find("Sword").gameObject.SetActive(true);
+            transform.Find("gun").gameObject.SetActive(false);
+        }
+        if(equip == -1)
+        {
+            transform.Find("Sword").gameObject.SetActive(false);
+            transform.Find("gun").gameObject.SetActive(true);
         }
     }
     private void OnDrawGizmosSelected()
@@ -107,5 +125,10 @@ public class characterMovement : MonoBehaviour
         {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
+    }
+    private void turning()
+    {
+        direction = -direction;
+        transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
     }
 }

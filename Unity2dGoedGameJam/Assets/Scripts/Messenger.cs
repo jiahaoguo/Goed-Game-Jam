@@ -39,6 +39,9 @@ public enum Events {
     move,
     attack,
     timeStart,
+    equip,
+    drawCard,
+    turn,
     /**
     itemget,
     Dialogue,
