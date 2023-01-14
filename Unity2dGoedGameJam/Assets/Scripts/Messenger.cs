@@ -38,6 +38,7 @@ public enum Events {
     checkCard,
     move,
     attack,
+    timeStart,
     /**
     itemget,
     Dialogue,

@@ -5,10 +5,19 @@ using UnityEngine.UI;
 
 public class TimeRemain : MonoBehaviour
 {
-    public int Time;
+    public int time;
+    private float timeShowed;
+    private void Start()
+    {
+        timeShowed=time;
+    }
     private void Update()
     {
-        GetComponent<Text>().text = Time.ToString();
+        if(timeShowed > time)
+        {
+            timeShowed-=Time.deltaTime;
+        }
+        GetComponent<Text>().text = ((int) timeShowed).ToString();
     }
     private void OnEnable()
     {
@@ -22,16 +31,16 @@ public class TimeRemain : MonoBehaviour
     }
     void checkTime(int t)
     {
-        Messenger.Broadcast<bool>(Events.checkTimeRemain, Time>t);
+        Messenger.Broadcast<bool>(Events.checkTimeRemain, time>t);
     }
     void usingCard(cardDisplay card)
     {
         usingTime(card.card.timeCost);
     }
-    void usingTime(int time)
+    void usingTime(int time1)
     {
-        Time -= time;
-        if(Time < 0)
+        time -= time1;
+        if(time < 0)
         {
             //Game Over
             //Messenger Board Cast

@@ -42,7 +42,8 @@ public class deckHolder : MonoBehaviour
     }
     private void usingCard(cardDisplay card)
     {
-        card.card.PerformEffect();
+        card.card.PerformEffect(card.card.EffectAmount);
+        Messenger.Broadcast<int>(Events.timeStart, card.card.timeCost);
         hands.Remove(card);
         deck.Add(card);
         card.gameObject.SetActive(false);

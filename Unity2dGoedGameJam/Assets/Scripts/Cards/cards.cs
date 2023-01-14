@@ -7,44 +7,44 @@ public class cards : ScriptableObject
 {
     [SerializeReference]    
     public ICardEffect Effect;
-    //public int effectAmount;
 
-    public void PerformEffect()
+    public void PerformEffect(int effectAmount)
     {
-        Effect?.PerformEffect();
+        Effect?.PerformEffect(effectAmount);
     }
+    public int EffectAmount;
     public string cardName;
     public string description;
 
+    public int timeCost;
+
     public Sprite Art;
 
-    public int timeCost;
+    
 }
 public interface ICardEffect
 {
-    void PerformEffect();
+    void PerformEffect(int effectAmount);
 }
 
 public class moveRight : ICardEffect
 {
-    public void PerformEffect()
+    public void PerformEffect(int effectAmount)
     {
-        //Messenger.Broadcast<int>(Events.move, effectAmount);
-        Messenger.Broadcast<int>(Events.move, 4);
+        Messenger.Broadcast<int>(Events.move, effectAmount);
     }
 }
 
 public class Attack : ICardEffect
 {
-    public void PerformEffect()
+    public void PerformEffect(int effectAmount)
     {
-        //Messenger.Broadcast<int>(Events.attack, effectAmount);
-        Messenger.Broadcast<int>(Events.attack, 4);
+        Messenger.Broadcast<int>(Events.attack, effectAmount);
     }
 }
 public class equip : ICardEffect
 {
-    public void PerformEffect()
+    public void PerformEffect(int effectAmount)
     {
 
     }
