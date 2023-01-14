@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: newCard
   m_EditorClassIdentifier: 
   Effect:
-    rid: -2
+    rid: 5428331016044937219
   EffectAmount: 0
   cardName: 
   description: 
-  timeCost: 0
+  timeCost: 4
   Art: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 5428331016044937219
+      type: {class: wait, ns: , asm: Assembly-CSharp}
