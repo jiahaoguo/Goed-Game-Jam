@@ -18,7 +18,7 @@ MonoBehaviour:
   cardName: 
   description: 
   timeCost: 0
-  Art: {fileID: 0}
+  Art: {fileID: 21300000, guid: 775137fd00cfd45618cc822154c82234, type: 3}
   references:
     version: 2
     RefIds:
