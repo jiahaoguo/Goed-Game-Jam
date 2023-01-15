@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effect:
     rid: 5428331035448573952
-  EffectAmount: 3
+  EffectAmount: 7
   cardName: Step Up
   description: Going Up
   timeCost: 1
