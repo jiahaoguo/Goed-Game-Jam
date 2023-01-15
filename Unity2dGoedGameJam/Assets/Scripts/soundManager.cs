@@ -11,7 +11,12 @@ public class soundManager : MonoBehaviour
     public AudioSource sdEquipSword;
     public AudioSource sdTurn;
     public AudioSource sdPlayerWalk;
-    public AudioSource sdEnemyWalk;
+    public AudioSource sdElfWalk;
+    public AudioSource sdGiantWalk;
+    public AudioSource sdShoot;
+    public AudioSource sdThink;
+    public AudioSource sdWait;
+    public AudioSource sdHurt;
 
 
 

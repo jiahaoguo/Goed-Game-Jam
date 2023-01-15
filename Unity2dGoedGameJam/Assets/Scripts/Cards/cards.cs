@@ -53,6 +53,7 @@ public class Think : ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
+        soundManager.Instance.sdThink.Play();
         Messenger.Broadcast<int>(Events.drawCard, effectAmount);
     }
 }
@@ -60,7 +61,7 @@ public class Wait : ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
-
+        soundManager.Instance.sdWait.Play();
     }
 }
 public class Turn : ICardEffect
