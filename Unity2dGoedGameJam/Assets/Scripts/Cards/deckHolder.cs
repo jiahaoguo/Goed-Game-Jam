@@ -46,7 +46,7 @@ public class deckHolder : MonoBehaviour
         if (deck.Count <= 0)
         {
             deck.AddRange(discards);
-            disscards.Clear();
+            discards.Clear();
             Messenger.Broadcast<int>(Events.timeStart, 2);
         }
     }
