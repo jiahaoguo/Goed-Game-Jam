@@ -84,7 +84,6 @@ public class characterMovement : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(Physics2D.OverlapCircleAll(transform.position, 1.7f, Platform).Length);
         if (Physics2D.OverlapCircleAll(transform.position,1.7f, Platform).Length <= 0)
         {
             transform.position += new Vector3(0, -3, 0);
