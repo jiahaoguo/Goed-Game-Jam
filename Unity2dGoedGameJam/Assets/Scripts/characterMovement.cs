@@ -43,6 +43,7 @@ public class characterMovement : MonoBehaviour
     }
     private void moving(int distance)
     {
+        soundManager.Instance.sdPlayerWalk.Play();
         Collider2D[] hitwalls = Physics2D.OverlapAreaAll(transform.position, transform.position+new Vector3(distance*direction, 1, 0),Wall);
         if(hitwalls.Length > 0)
         {
@@ -73,7 +74,7 @@ public class characterMovement : MonoBehaviour
         }
         if (timer <= 0)
         {
-            
+            soundManager.Instance.sdPlayerWalk.Stop();
             animator.enabled = false;
             GetComponent<Collider2D>().enabled = true;
             if (hit) transform.Rotate(new Vector3(0, 0,-90));
@@ -104,12 +105,15 @@ public class characterMovement : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().gotHit(damage);
         }
+
+        soundManager.Instance.sdHit.Play();
     }
     private void equiping(int equip)
     {
         attackRange = equip;
         if(equip == 3)
         {
+            soundManager.Instance.sdEquipSword.Play();
             transform.Find("Sword").gameObject.SetActive(true);
             transform.Find("gun").gameObject.SetActive(false);
         }
@@ -128,6 +132,7 @@ public class characterMovement : MonoBehaviour
     }
     private void turning()
     {
+        soundManager.Instance.sdTurn.Play();
         direction = -direction;
         transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
     }

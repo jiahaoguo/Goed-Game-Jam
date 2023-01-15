@@ -8,6 +8,11 @@ public class soundManager : MonoBehaviour
 
     public AudioSource sdBGM;
     public AudioSource sdHit;
+    public AudioSource sdEquipSword;
+    public AudioSource sdTurn;
+    public AudioSource sdPlayerWalk;
+    public AudioSource sdEnemyWalk;
+
 
 
     void Awake()
