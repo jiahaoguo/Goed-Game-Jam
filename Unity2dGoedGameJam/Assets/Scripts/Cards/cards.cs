@@ -74,6 +74,6 @@ public class Up: ICardEffect
 {
     public void PerformEffect(int effectAmount)
     {
-        Messenger.Broadcast(Events.up);
+        Messenger.Broadcast(Events.up,effectAmount);
     }
 }

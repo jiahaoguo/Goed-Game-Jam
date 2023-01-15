@@ -15,22 +15,36 @@ public class characterMovement : MonoBehaviour
 
     private float moveDistance=0;
     private float timer=0;
+    private cardDisplay interativeCard;
 
     public LayerMask enemyMask;
     public LayerMask Wall;
+    public LayerMask Platform;
+
+    private deckHolder panel;
+
+    public cards[] addOnCards;
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("a");
         if (collision.transform.tag == "Platform")
-        {
-            deckHolder panel = FindObjectOfType<deckHolder>();
+        {            
             if(panel != null)
             {
-                panel.addCard()
+                interativeCard = panel.addCard(addOnCards[0]);
             }
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(panel.deck.Contains(interativeCard)) panel.deck.Remove(interativeCard);
+        if(panel.hands.Contains(interativeCard)) panel.hands.Remove(interativeCard);
+        if(panel.discards.Contains(interativeCard)) panel.discards.Remove(interativeCard);
+        if(interativeCard!=null)interativeCard.gameObject.SetActive(false);
+    }
     private void Start()
     {
+        panel = FindObjectOfType<deckHolder>();
         animator = GetComponent<Animator>();
     }
     private void OnEnable()
@@ -40,6 +54,7 @@ public class characterMovement : MonoBehaviour
         Messenger.AddListener<int>(Events.equip, equiping);
         Messenger.AddListener<int>(Events.timeStart, addTimer);
         Messenger.AddListener(Events.turn, turning);
+        Messenger.AddListener<int>(Events.up,goingUp);
     }
     private void OnDisable()
     {
@@ -48,6 +63,7 @@ public class characterMovement : MonoBehaviour
         Messenger.RemoveListener<int>(Events.equip, equiping);
         Messenger.RemoveListener<int>(Events.timeStart, addTimer);
         Messenger.RemoveListener(Events.turn, turning);
+        Messenger.RemoveListener<int>(Events.up, goingUp);
     }
     private void addTimer(int x)
     {
@@ -68,6 +84,11 @@ public class characterMovement : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(Physics2D.OverlapCircleAll(transform.position, 1.7f, Platform).Length);
+        if (Physics2D.OverlapCircleAll(transform.position,1.7f, Platform).Length <= 0)
+        {
+            transform.position += new Vector3(0, -3, 0);
+        }
         if (moveDistance == Mathf.Infinity && timer > 0)
         {
             //rejection Animation
@@ -151,7 +172,7 @@ public class characterMovement : MonoBehaviour
     {
         if (attackPoint != null)
         {
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
         }
     }
     private void turning()
@@ -159,5 +180,9 @@ public class characterMovement : MonoBehaviour
         soundManager.Instance.sdTurn.Play();
         direction = -direction;
         transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
+    }
+    private void goingUp(int distance)
+    {
+        transform.position+=new Vector3(0, distance, 0);
     }
 }

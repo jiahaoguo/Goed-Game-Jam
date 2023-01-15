@@ -9,7 +9,7 @@ public class deckHolder : MonoBehaviour
     public int maxiumumCard;
     public List<cardDisplay> deck;
     public List<cardDisplay> hands;
-    private List<cardDisplay> discards;
+    public List<cardDisplay> discards;
     public RectTransform[] cardSlots;
     public GameObject cardMod;
     private void Start()
@@ -24,10 +24,21 @@ public class deckHolder : MonoBehaviour
     {
         deckNum.text = deck.Count.ToString();
     }
-    public void addCard(cards card)
+    public cardDisplay addCard(cards card)
     {
-        GameObject newcard = Instantiate(cardMod);
-        cardMod.GetComponent<cardDisplay>().card=card;
+        if (hands.Count < maxiumumCard)
+        {
+            GameObject newcard = Instantiate(cardMod,transform.parent);
+            cardMod.GetComponent<cardDisplay>().card = card;
+            hands.Add(newcard.GetComponent<cardDisplay>());
+            for (int i = 0; i < hands.Count; i++)
+            {
+                hands[i].GetComponent<RectTransform>().anchoredPosition = cardSlots[i].anchoredPosition;
+            }
+            return newcard.GetComponent<cardDisplay>();
+        }
+        return null;
+       
     }
     public void drawCards()
     {
