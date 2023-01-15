@@ -25,21 +25,30 @@ public class TimeRemain : MonoBehaviour
     {
         Messenger.AddListener<int>(Events.checkCard, checkTime);
         Messenger.AddListener<int>(Events.timeStart, usingCard);
+        Messenger.AddListener(Events.win, wining);
     }
     private void OnDisable()
     {
-        Messenger.AddListener<int>(Events.checkCard, checkTime);
-        Messenger.AddListener<int>(Events.timeStart, usingCard);
+        Messenger.RemoveListener<int>(Events.checkCard, checkTime);
+        Messenger.RemoveListener<int>(Events.timeStart, usingCard);
+        Messenger.RemoveListener(Events.win, wining);
     }
     void checkTime(int t)
     {
-        Messenger.Broadcast<bool>(Events.checkTimeRemain, time>t);
+        Messenger.Broadcast<bool>(Events.checkTimeRemain, time>=t);
+    }
+    void wining()
+    {
+        time = 30;
+        transform.Find("Win").gameObject.SetActive(true);
     }
     void usingCard(int time1)
     {
         time -= time1;
-        if(time < 0)
+        if(time <= 0)
         {
+            time = 30;
+            transform.Find("GameOver").gameObject.SetActive(true);
             //Game Over
             //Messenger Board Cast
         }

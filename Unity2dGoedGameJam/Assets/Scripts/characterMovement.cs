@@ -33,6 +33,10 @@ public class characterMovement : MonoBehaviour
                 interativeCard = panel.addCard(addOnCards[0]);
             }
         }
+        if(collision.transform.tag == "Goal")
+        {
+            Messenger.Broadcast(Events.win);
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
