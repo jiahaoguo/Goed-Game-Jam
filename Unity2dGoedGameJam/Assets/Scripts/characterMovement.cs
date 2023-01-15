@@ -132,9 +132,12 @@ public class characterMovement : MonoBehaviour
     {
         if (attackRange == -1)
         {
-            RaycastHit2D hitEnemy = Physics2D.Raycast(attackPoint.position, new Vector3(1,0,0),20f, enemyMask);
-            hitEnemy.transform.GetComponent<Enemy>().gotHit(damage);
-            Instantiate(hitParticle, hitEnemy.transform);
+            RaycastHit2D hitEnemy = Physics2D.Raycast(attackPoint.position, new Vector2(2,0),20f, enemyMask);
+            if(hitEnemy.transform != null)
+            {
+                hitEnemy.transform.GetComponent<Enemy>().gotHit(damage);
+                Instantiate(hitParticle, hitEnemy.transform);
+            }
         }
         else
         {

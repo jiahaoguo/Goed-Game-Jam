@@ -28,8 +28,8 @@ public class deckHolder : MonoBehaviour
     {
         if (hands.Count < maxiumumCard)
         {
-            GameObject newcard = Instantiate(cardMod,transform.Find("parentCard"));
             cardMod.GetComponent<cardDisplay>().card = card;
+            GameObject newcard = Instantiate(cardMod,transform.Find("parentCard"));            
             hands.Add(newcard.GetComponent<cardDisplay>());
             for (int i = 0; i < hands.Count; i++)
             {
