@@ -26,4 +26,3 @@ MonoBehaviour:
       type: {class: , ns: , asm: }
     - rid: 5428331016044937219
       type: {class: wait, ns: , asm: Assembly-CSharp}
-      data: {}

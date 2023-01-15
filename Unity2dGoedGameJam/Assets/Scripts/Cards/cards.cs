@@ -70,3 +70,10 @@ public class Turn : ICardEffect
         Messenger.Broadcast(Events.turn);
     }
 }
+public class Up: ICardEffect
+{
+    public void PerformEffect(int effectAmount)
+    {
+        Messenger.Broadcast(Events.up);
+    }
+}

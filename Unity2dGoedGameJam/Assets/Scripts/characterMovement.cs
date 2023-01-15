@@ -9,6 +9,7 @@ public class characterMovement : MonoBehaviour
     public float attackSpeed=0.5f;
     public float attackTime;
     private Animator animator;
+    public GameObject hitParticle;
     private bool hit=false;
     private int direction = 1;
 
@@ -17,6 +18,17 @@ public class characterMovement : MonoBehaviour
 
     public LayerMask enemyMask;
     public LayerMask Wall;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Platform")
+        {
+            deckHolder panel = FindObjectOfType<deckHolder>();
+            if(panel != null)
+            {
+                panel.addCard()
+            }
+        }
+    }
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -98,12 +110,24 @@ public class characterMovement : MonoBehaviour
 
     private void attack(int damage)
     {
-        // Do animation here
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyMask);
-        foreach(Collider2D enemy in hitEnemies)
+        if (attackRange == -1)
         {
-            enemy.GetComponent<Enemy>().gotHit(damage);
+            RaycastHit2D hitEnemy = Physics2D.Raycast(attackPoint.position, new Vector3(1,0,0),20f, enemyMask);
+            hitEnemy.transform.GetComponent<Enemy>().gotHit(damage);
+            Instantiate(hitParticle, hitEnemy.transform);
         }
+        else
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyMask);
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<Enemy>().gotHit(damage);
+                Instantiate(hitParticle, enemy.transform);
+            }
+        }
+        
+        // Do animation here    
+
     }
     private void equiping(int equip)
     {
