@@ -20,7 +20,11 @@ public class cardDisplay : MonoBehaviour
         if(timer > 0) GetComponent<Button>().enabled = false;
         else GetComponent<Button>().enabled = true;
         timer-=Time.deltaTime;
+
+        
     }
+
+
     private void OnEnable()
     {
         Messenger.AddListener<int>(Events.timeStart, addTimer);
