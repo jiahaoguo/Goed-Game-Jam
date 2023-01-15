@@ -45,12 +45,9 @@ public class deckHolder : MonoBehaviour
         }
         if (deck.Count <= 0)
         {
-            foreach(cardDisplay card in discards)
-            {
-                deck.Add(card);
-                discards.Remove(card);
-                Messenger.Broadcast<int>(Events.timeStart, 2);
-            }
+            deck = discards;
+            discards.Clear();
+            Messenger.Broadcast<int>(Events.timeStart, 2);
         }
     }
     private void OnEnable()

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public int health=100;
     public string state = "Roaming";
-    //public Transform sightPoint;
+    public Transform sightPoint;
     public LayerMask visiable;
     public LayerMask player;
     private Transform target;
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        //sightPoint = transform.Find("vision");
+        sightPoint = transform.Find("vision");
         currentHealth = health;
     }
     private void Update()   
@@ -29,15 +29,25 @@ public class Enemy : MonoBehaviour
         if(timer > 0)
         {
             animator.enabled = true;
+            if(state == "Standing")
+            {
+                Transform capture = Physics2D.Raycast(sightPoint.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
+                if (capture != null && capture.tag == "Player")
+                {
+                    target = capture;
+                    GetComponent<SpriteRenderer>().color = Color.yellow;
+                    state = "Alert";
+                }
+            }
             if (state == "Roaming")
             {
                 transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
-                if (Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(2, 1, 0), Wall).Length > 0)
+                if (Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(2, 3, 0), Wall).Length > 0)
                 {
                     speed = -speed;
                     transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
                 }
-                Transform capture = Physics2D.Raycast(transform.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
+                Transform capture = Physics2D.Raycast(sightPoint.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
                 if (capture != null && capture.tag == "Player")
                 {
                     target = capture;
@@ -47,7 +57,7 @@ public class Enemy : MonoBehaviour
             }
             if(state == "Alert")
             {
-                Transform capture = Physics2D.Raycast(transform.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
+                Transform capture = Physics2D.Raycast(sightPoint.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
                 if (capture == null)
                 {
                     state = "Roaming";
@@ -92,7 +102,7 @@ public class Enemy : MonoBehaviour
                 attackTimer-= Time.deltaTime;
                 if(attackTimer < 0)
                 {
-                    Transform capture = Physics2D.Raycast(transform.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
+                    Transform capture = Physics2D.Raycast(sightPoint.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
                     if(capture != null && capture.tag == "Player")
                     {
                         target = capture;

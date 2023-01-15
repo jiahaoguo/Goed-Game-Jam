@@ -184,7 +184,7 @@ MonoBehaviour:
     m_Bits: 320
   player:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   speed: 1
   Wall:
     serializedVersion: 2
