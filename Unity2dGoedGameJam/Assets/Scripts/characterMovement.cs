@@ -26,7 +26,6 @@ public class characterMovement : MonoBehaviour
     public cards[] addOnCards;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("a");
         if (collision.transform.tag == "Platform")
         {            
             if(panel != null)
@@ -86,7 +85,7 @@ public class characterMovement : MonoBehaviour
     {
         if (Physics2D.OverlapCircleAll(transform.position,1.7f, Platform).Length <= 0)
         {
-            transform.position += new Vector3(0, -3, 0);
+            transform.position += new Vector3(0, -6, 0)*Time.deltaTime;
         }
         if (moveDistance == Mathf.Infinity && timer > 0)
         {

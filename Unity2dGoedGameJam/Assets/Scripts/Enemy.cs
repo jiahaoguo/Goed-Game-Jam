@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
                     state = "Roaming";
                     GetComponent<SpriteRenderer>().color = Color.white;
                 }
-                transform.position=Vector3.MoveTowards(transform.position, target.position, Time.deltaTime* Mathf.Abs(speed) * 2);
+                transform.position=Vector3.MoveTowards(transform.position, new Vector3(target.position.x,transform.position.y,0), Time.deltaTime* Mathf.Abs(speed) * 2);
                 if (transform.position.x > target.position.x)
                 {
                     speed = -1;
