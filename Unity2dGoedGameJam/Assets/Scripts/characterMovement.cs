@@ -9,16 +9,42 @@ public class characterMovement : MonoBehaviour
     public float attackSpeed=0.5f;
     public float attackTime;
     private Animator animator;
+    public GameObject hitParticle;
     private bool hit=false;
     private int direction = 1;
 
     private float moveDistance=0;
     private float timer=0;
+    private cardDisplay interativeCard;
 
     public LayerMask enemyMask;
     public LayerMask Wall;
+    public LayerMask Platform;
+
+    private deckHolder panel;
+
+    public cards[] addOnCards;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("a");
+        if (collision.transform.tag == "Platform")
+        {            
+            if(panel != null)
+            {
+                interativeCard = panel.addCard(addOnCards[0]);
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(panel.deck.Contains(interativeCard)) panel.deck.Remove(interativeCard);
+        if(panel.hands.Contains(interativeCard)) panel.hands.Remove(interativeCard);
+        if(panel.discards.Contains(interativeCard)) panel.discards.Remove(interativeCard);
+        if(interativeCard!=null)interativeCard.gameObject.SetActive(false);
+    }
     private void Start()
     {
+        panel = FindObjectOfType<deckHolder>();
         animator = GetComponent<Animator>();
     }
     private void OnEnable()
@@ -28,6 +54,7 @@ public class characterMovement : MonoBehaviour
         Messenger.AddListener<int>(Events.equip, equiping);
         Messenger.AddListener<int>(Events.timeStart, addTimer);
         Messenger.AddListener(Events.turn, turning);
+        Messenger.AddListener<int>(Events.up,goingUp);
     }
     private void OnDisable()
     {
@@ -36,6 +63,7 @@ public class characterMovement : MonoBehaviour
         Messenger.RemoveListener<int>(Events.equip, equiping);
         Messenger.RemoveListener<int>(Events.timeStart, addTimer);
         Messenger.RemoveListener(Events.turn, turning);
+        Messenger.RemoveListener<int>(Events.up, goingUp);
     }
     private void addTimer(int x)
     {
@@ -56,6 +84,10 @@ public class characterMovement : MonoBehaviour
     }
     private void Update()
     {
+        if (Physics2D.OverlapCircleAll(transform.position,1.7f, Platform).Length <= 0)
+        {
+            transform.position += new Vector3(0, -3, 0);
+        }
         if (moveDistance == Mathf.Infinity && timer > 0)
         {
             //rejection Animation
@@ -99,12 +131,24 @@ public class characterMovement : MonoBehaviour
 
     private void attack(int damage)
     {
-        // Do animation here
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyMask);
-        foreach(Collider2D enemy in hitEnemies)
+        if (attackRange == -1)
         {
-            enemy.GetComponent<Enemy>().gotHit(damage);
+            RaycastHit2D hitEnemy = Physics2D.Raycast(attackPoint.position, new Vector3(1,0,0),20f, enemyMask);
+            hitEnemy.transform.GetComponent<Enemy>().gotHit(damage);
+            Instantiate(hitParticle, hitEnemy.transform);
         }
+        else
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyMask);
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<Enemy>().gotHit(damage);
+                Instantiate(hitParticle, enemy.transform);
+            }
+        }
+        
+        // Do animation here    
+
 
         soundManager.Instance.sdHit.Play();
     }
@@ -127,7 +171,7 @@ public class characterMovement : MonoBehaviour
     {
         if (attackPoint != null)
         {
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
         }
     }
     private void turning()
@@ -135,5 +179,9 @@ public class characterMovement : MonoBehaviour
         soundManager.Instance.sdTurn.Play();
         direction = -direction;
         transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
+    }
+    private void goingUp(int distance)
+    {
+        transform.position+=new Vector3(0, distance, 0);
     }
 }

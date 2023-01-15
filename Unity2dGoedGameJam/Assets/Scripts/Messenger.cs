@@ -42,6 +42,7 @@ public enum Events {
     equip,
     drawCard,
     turn,
+    up,
     /**
     itemget,
     Dialogue,

@@ -609,7 +609,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 9114f8a9f32134d74abfe2860fc32721, type: 3}
-    m_FontSize: 100
+    m_FontSize: 177
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -620,4 +620,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Discriptions
+  m_Text: dsadadasdadadadadadadadadadadadadada
