@@ -120,6 +120,7 @@ public class characterMovement : MonoBehaviour
 
     public void getHurt(int damage)
     {
+        soundManager.Instance.sdHurt.Play();
         timer = 2;
         hit = true;
         moveDistance = Mathf.Infinity;

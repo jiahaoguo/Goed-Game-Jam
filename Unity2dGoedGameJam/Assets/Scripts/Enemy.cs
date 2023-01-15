@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
                 Transform capture = Physics2D.Raycast(sightPoint.position, new Vector2(speed * 7, 0), 7f, visiable).transform;
                 if (capture == null)
                 {
+                    soundManager.Instance.sdElfWalk.Play();
                     state = "Roaming";
                     GetComponent<SpriteRenderer>().color = Color.white;
                 }
@@ -135,6 +136,7 @@ public class Enemy : MonoBehaviour
     }
     public void gotHit(int damage)
     {
+        soundManager.Instance.sdHurt.Play();
         //Onhit Animation
         currentHealth -= damage;
         if (currentHealth <= 0) 
