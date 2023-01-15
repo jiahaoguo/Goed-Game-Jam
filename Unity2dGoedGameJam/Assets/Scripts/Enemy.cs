@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
                 {
                     target = capture;
                     GetComponent<SpriteRenderer>().color = Color.yellow;
-                    state = "Alert";
+                    state = "Alert";    
                 }
             }
             if (state == "Roaming")
